@@ -1,0 +1,94 @@
+<div style="float: right"><button class="btn btn-danger" type="button" (click)="onLogout()">Logout</button></div>
+<div class="col-md-12 text-center"><h1 *ngIf="editSwitch === true">Edit Profile</h1>
+    <h1 *ngIf="editSwitch === false">My Profile</h1>
+</div>
+    <div class="col-md-12">
+        <div class="col-md-6"><h1 class="text-center">Profile</h1>
+            <div class="col-md-12 text-center">
+                <div class="col-md-12 text-center"><button type="button" class="btn btn-secondary" (click)="enableEdit()">Edit Profile</button></div>
+                <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+                    <div class="col-md-6"><h5>Full Name</h5></div>
+                        <div class="col-md-6">
+                        <input [disabled] ="editSwitch === false" type="text" #fullName="ngModel" [(ngModel)]="userDetails.fullName" name="fullName" placeholder="Full Name"
+                        required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !fullName.valid && editSwitch === true }">
+                        <div *ngIf="signUpForm.submitted && !fullName.valid && editSwitch === true">
+                          <label class="validation-message">This field is required.</label>
+                        </div></div>
+                    <div class="col-md-6"> <h5>City</h5></div>
+                    <div class="col-md-6">
+                        <input [disabled]="editSwitch === false" type="text" #city="ngModel" [(ngModel)]="userDetails.city" name="city" placeholder="City"
+                        required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !city.valid && editSwitch === true }">
+                        <div *ngIf="signUpForm.submitted && !city.valid && editSwitch === true">
+                            <label class="validation-message">This field is required.</label>
+                        </div></div>
+                    <div class="col-md-6"> <h5>State</h5></div>
+                    <div class="col-md-6">
+                        <input [disabled] ="editSwitch===false" type="text" #state="ngModel" [(ngModel)]="userDetails.state" name="state" placeholder="State"
+                        required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !state.valid && editSwitch === true }">
+                        <div *ngIf="signUpForm.submitted && !state.valid && editSwitch === true">
+                            <label class="validation-message">This field is required.</label>
+                        </div></div>
+                    
+                   <div class="col-md-6"> <h5>Country</h5></div>
+                    <div class="col-md-6">
+                    <input [disabled] ="editSwitch===false" type="text" #country="ngModel" [(ngModel)]="userDetails.country" name="country" placeholder="Country"
+                    required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !country.valid && editSwitch === true }">
+                    <div *ngIf="signUpForm.submitted && !country.valid && editSwitch === true">
+                        <label class="validation-message">This field is required.</label>
+                    </div></div>
+                   
+                   <div class="col-md-6"><h5 *ngIf="editSwitch === false">Email Address</h5></div>
+                   
+                    <div class="col-md-6"> <input  *ngIf="editSwitch === false" disabled type="text" #email="ngModel" [(ngModel)]="userDetails.email" name="email" placeholder="Email"></div>
+                 
+                    <input *ngIf="editSwitch === true" type="submit" value="Update">
+                    <input type="button" *ngIf="editSwitch === true" (click)="editSwitch = false" value="Cancel">
+                  </form>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5"><h1 >Friends Suggestion</h1>
+            <div *ngFor = "let userData of allUsersData.filterResult">
+                <div class="col-md-12">
+                <div style="float: left;" class="col-md-6"><h3>{{userData.fullName}}</h3></div>
+                <div *ngIf = "requestSentSuccess.length !== 0">
+                <!-- <div *ngFor = "let userId of requestSentSuccess"> -->
+                <div  style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="sendFriendReq(userData._id, userData.fullName)" class="btn-sm btn-primary" type="button" >Add Friend</button></div>
+            <!-- </div> -->
+        </div>
+        <div *ngIf = "requestSentSuccess.length === 0">
+            <div  style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="sendFriendReq(userData._id)" class="btn-sm btn-primary" type="button" >Add Friend</button></div>
+         </div>
+            </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-4">
+        <h1 class="text-center">Friend Requests</h1>
+        <div *ngFor="let req of friendReqs">
+        
+        <div class="col-md-6"><h3>{{req.fullName}}</h3></div>
+        <div class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" class="btn btn-primary" type="button" >Accept</button></div>
+    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h1 class="text-center">Request Sent</h1>
+                <div *ngFor="let sentReq of requestSentSuccess">
+                <div class="col-md-6 text-center"><h3>{{sentReq.fullName}}</h3></div>
+                <div style="float: right;" class="col-md-6" style="float: right;" class="col-md-6"><button disabled style="margin: 20px 0px 10px" class="btn btn-primary" type="button" >Sent</button></div>
+        </div>
+    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h1 class="text-center">Friend List</h1>
+                <div *ngFor="let friends of friendList">
+                <div class="col-md-6 text-center"><h3>{{friends.fullName}}</h3></div>
+        </div>
+    </div>
+    </div>
+    </div>
+
