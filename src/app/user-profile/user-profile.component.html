@@ -48,19 +48,11 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-5"><h1 >Friends Suggestion</h1>
-            <div *ngFor = "let userData of allUsersData.filterResult">
+            <div *ngFor = "let userData of allUsersData">
                 <div class="col-md-12">
-                <div style="float: left;" class="col-md-6"><h3>{{userData.fullName}}</h3></div>
-                <div *ngIf = "requestSentSuccess.length !== 0">
-                <!-- <div *ngFor = "let userId of requestSentSuccess"> -->
+                 <div  style="float: left;" class="col-md-6"><h3>{{userData.fullName}}</h3></div>   
                 <div  style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="sendFriendReq(userData._id, userData.fullName)" class="btn-sm btn-primary" type="button" >Add Friend</button></div>
-            <!-- </div> -->
-        </div>
-        <div *ngIf = "requestSentSuccess.length === 0">
-            <div  style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="sendFriendReq(userData._id)" class="btn-sm btn-primary" type="button" >Add Friend</button></div>
-         </div>
             </div>
-                
             </div>
         </div>
     </div>
@@ -68,15 +60,16 @@
         <div class="col-md-4">
         <h1 class="text-center">Friend Requests</h1>
         <div *ngFor="let req of friendReqs">
-        
         <div class="col-md-6"><h3>{{req.fullName}}</h3></div>
-        <div class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" class="btn btn-primary" type="button" >Accept</button></div>
+        <div class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="acceptFriendReq(req.id, req.fullName)" class="btn btn-primary" type="button" >Accept</button></div>
+        <div class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="rejectFriendReq(req.id, req.fullName)" class="btn btn-secondary" type="button" >Reject</button></div>
     </div>
         </div>
         <div class="col-md-4">
             <div class="col-md-12">
                 <h1 class="text-center">Request Sent</h1>
                 <div *ngFor="let sentReq of requestSentSuccess">
+                    <!-- {{sentReq|json}} -->
                 <div class="col-md-6 text-center"><h3>{{sentReq.fullName}}</h3></div>
                 <div style="float: right;" class="col-md-6" style="float: right;" class="col-md-6"><button disabled style="margin: 20px 0px 10px" class="btn btn-primary" type="button" >Sent</button></div>
         </div>
@@ -86,7 +79,9 @@
             <div class="col-md-12">
                 <h1 class="text-center">Friend List</h1>
                 <div *ngFor="let friends of friendList">
-                <div class="col-md-6 text-center"><h3>{{friends.fullName}}</h3></div>
+                <div class="col-md-6 text-center"><h3>{{friends.fullName}}</h3>
+                <div style="float: right;" class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="unfriend(friends.id, friends.fullName)" class="btn btn-secondary" type="button" >Unfriend</button></div>
+                </div>
         </div>
     </div>
     </div>

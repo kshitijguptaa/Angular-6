@@ -50,7 +50,15 @@ export class UserService {
   getFriendListDetails(){
     return this.http.get(environment.apiBaseUrl+'/getFriendListDetails');
   }
-
+  acceptFriendReq(userId){
+    return this.http.post(environment.apiBaseUrl+'/acceptReq',userId);
+  }
+  rejectFriendReq(userId){
+    return this.http.post(environment.apiBaseUrl+'/rejectReq',userId);
+  }
+  unfriend(userId){
+    return this.http.post(environment.apiBaseUrl+'/unfriend',userId);
+  }
   //Helper Methods
 
   setToken(token: string) {
