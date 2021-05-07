@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/user.service';
+import { UserService } from '../../shared/user.service';
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
-
+import {  FileUploader } from 'ng2-file-upload';
+const URL = 'http://localhost:3000/api/profileUpload';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -17,13 +18,20 @@ export class UserProfileComponent implements OnInit {
   public requestSentSuccess: any;
   public friendReqs: any;
   public friendList: any;
+  public uploader:FileUploader = new FileUploader({url: URL, authToken:'Bearer '+ this.userService.getToken() , itemAlias: 'photo'});
+  title = 'app works!';
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.getUserProfileDetails()  
     this.getFriendListDetail() 
     this.getAllUserDetails()
+    this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+      console.log("ImageUpload:uploaded:", item, status, response);
+  };
   }
+
 getUserProfileDetails(){
   this.userService.getUserProfile().subscribe(
     res => {
@@ -125,9 +133,4 @@ onSubmit(form: NgForm) {
     err => {}
 )
   }
-  onLogout(){
-    this.userService.deleteToken();
-    this.router.navigate(['/login']);
-  }
-
 }

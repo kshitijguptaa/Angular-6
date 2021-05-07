@@ -1,0 +1,10 @@
+<div class="col-md-4">
+  <div class="col-md-12">
+      <h1 class="text-center">Friend List</h1>
+      <div *ngFor="let friends of friendList">
+      <div class="col-md-6 text-center"><h3>{{friends.fullName}}</h3>
+      <div style="float: right;" class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="unfriend(friends.id, friends.fullName)" class="btn btn-secondary" type="button" >Unfriend</button></div>
+      </div>
+</div>
+</div>
+</div>

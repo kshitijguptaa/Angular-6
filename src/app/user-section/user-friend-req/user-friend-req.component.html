@@ -1,0 +1,8 @@
+<div class="col-md-4">
+  <h1 class="text-center">Friend Requests</h1>
+  <div *ngFor="let req of friendReqs">
+  <div class="col-md-6"><h3>{{req.fullName}}</h3></div>
+  <div class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="acceptFriendReq(req.id, req.fullName)" class="btn btn-primary" type="button" >Accept</button></div>
+  <div class="col-md-6" style="float: right;" class="col-md-6"><button style="margin: 20px 0px 10px" (click)="rejectFriendReq(req.id, req.fullName)" class="btn btn-secondary" type="button" >Reject</button></div>
+  </div>
+  </div>
